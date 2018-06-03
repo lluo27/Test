@@ -61,10 +61,10 @@ int calculate_champion_health(championE champion, const char **date_string_inter
 {
 	int health = initialize_HP(champion);
 	struct tm tm_start, tm_end;
-	struct tm playTime = tm_start;
 
 	strptime(date_string_intervals[0], "%Y-%m-%d %H:%M", &tm_start);
 	strptime(date_string_intervals[1], "%Y-%m-%d %H:%M", &tm_end);
+	struct tm playTime = tm_start;
 
 	for (int day = 0; day <= tm_end.tm_mday - tm_start.tm_mday; day ++)
 	{// Firstly, loops through days
