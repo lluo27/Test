@@ -60,15 +60,11 @@ int initialize_HP(championE champion)
 int calculate_champion_health(championE champion, const char **date_string_intervals)
 {
 	int health = initialize_HP(champion);
-
 	struct tm tm_start, tm_end;
-
-	char buf2 [32];
+	struct tm playTime = tm_start;
 
 	strptime(date_string_intervals[0], "%Y-%m-%d %H:%M", &tm_start);
 	strptime(date_string_intervals[1], "%Y-%m-%d %H:%M", &tm_end);
-
-	struct tm playTime = tm_start;
 
 	for (int day = 0; day <= tm_end.tm_mday - tm_start.tm_mday; day ++)
 	{// Firstly, loops through days
@@ -90,14 +86,13 @@ int calculate_champion_health(championE champion, const char **date_string_inter
 
 		playTime.tm_mday += day;
 		for (int hour = startHour; hour <= endHour; hour++)
-		{// One damage each hour
-			if (hour == endHour)
+		{// Damage once per hour
+
+			if ((hour == endHour) && (playTime.tm_min >= tm_end.tm_min))
 			{
-				if(playTime.tm_min >= tm_end.tm_min)
-				{
-					break;
-				}
+				break;
 			}
+
 			int damage = calculate_damage_taken(playTime, champion);
 			health = health - damage;
 			if (health <= 0)
@@ -144,7 +139,7 @@ bool checkTimeSlot(int minute)
  ******************************************************************/
 bool holly_day(int day)
 {
-	return (2 == day || 4 == day);
+	return (2 == day || 4 == day); // Tuesday and Thursday
 }
 
 /*******************************************************************
@@ -165,7 +160,6 @@ bool invisible_champion(championE champion)
 		res = true;
 		break;
 	default:
-		res = false;
 		break;
 	}
 
