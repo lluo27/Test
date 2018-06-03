@@ -11,21 +11,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-enum bool{
-	false,
-	true
-}bool;
 
-enum champions{
+typedef enum { false, true } bool;
+
+typedef enum championE{
 	Human,
 	Wizard,
 	Spirit,
 	Giant,
 	Vampire
-}champion;
+}championE;
 
-enum gods{
+typedef enum godE{
 	Janna, 		// Demon of Wind spawned
 	Tiamat, 	// Goddess of Oceans spawned
 	Mithra, 	// Goddess of sun spawned
@@ -36,16 +35,18 @@ enum gods{
 	Rumble, 	// God of lightning spawned
 	Skarner, 	// The scorpion demon spawned
 	Luna 		// The goddess of the moon spawned
-}god;
+}godE;
 
-enum days{
-	Monday,
-	Tuesday,
-	Wednesday,
-	Thursday,
-	Friday,
-	Saturday,
-	Sunday
-}day;
+
+
+//Function declarations
+bool invisible_champion(championE champion);
+bool holly_day(int day);
+bool checkTimeSlot(int minute);
+int calculate_damage_taken(struct tm date, championE champion);
+int initialize_HP(championE champion);
+int calculate_champion_health(championE champion, const char **date_string_intervals);
+
+
 
 #endif /* GATEOFISHTAR_H_ */
